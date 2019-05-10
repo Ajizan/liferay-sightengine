@@ -1,0 +1,4 @@
+Bundle-Name: sightengine-web
+Bundle-SymbolicName: com.ajizan.liferay.sightengine-web
+Bundle-Version: 1.0.0
+Export-Package: com.ajizan.liferay.sightengine.constants

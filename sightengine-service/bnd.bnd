@@ -1,0 +1,6 @@
+Bundle-Name: sightengine-service
+Bundle-SymbolicName: com.ajizan.liferay.sightengine-service
+Bundle-Version: 1.0.0
+-includeresource: lib/httpmime.jar=httpmime-[0-9]*.jar;lib:=true,\
+lib/httpcore.jar=httpcore-[0-9]*.jar;lib:=true,\
+lib/httpclient.jar=httpclient-[0-9]*.jar;lib:=true
