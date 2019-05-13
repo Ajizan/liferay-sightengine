@@ -10,18 +10,20 @@ Liferay SightEngine plugin. API service provided by https://sightengine.com/
 
 ## How To Use
 
-> The main function exists in the SightEngineServiceImpl.java class with three types of parameters, either you call the function using a file or a byte array or a Stram input.
+> To use the connector just refer to the sightengine service, and then call the function isSafe (...)
 
-The function returns True if the image is considered appropriate otherwise it returns False
+> The function returns True if the image is considered appropriate otherwise it returns False
 
 > Example
 ```
+		@Reference
 		SightEngineService _sightEngineService; // Imported from the Main Class
-		File-image =new File(Path_to_File);
+
+		File image =new File(Path_to_File);
 		try {
 			_log.info(_sightEngineService.isSafeImage(image)); // File
 			_log.info(_sightEngineService.isSafeImage(Files.readAllBytes(image.toPath()))); // Bytes
-			_log.info(_sightEngineService.isSafeImage(new FileInputStream(image))); // Input Stram
+			_log.info(_sightEngineService.isSafeImage(new FileInputStream(image))); // Input Stream
 			// It will return True if Image is safe else it will return False
 		}catch (Exception e) {
 			_log.error(e);
