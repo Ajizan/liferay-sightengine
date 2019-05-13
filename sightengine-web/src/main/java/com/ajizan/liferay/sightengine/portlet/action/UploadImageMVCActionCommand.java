@@ -6,11 +6,11 @@ import com.ajizan.liferay.sightengine.constants.SightEnginePortletKeys;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCCommandCache;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -43,9 +43,13 @@ public class UploadImageMVCActionCommand implements MVCActionCommand {
 		File image = uploadPortletRequest.getFile("image");
 		
 		_log.error(image.getName());
-		
-		_log.error(_sightEngineService.isSafeImage(image));
-		
+		try {
+		//_log.error(_sightEngineService.isSafeImage(image));
+		_log.error(_sightEngineService.isSafeImage(Files.readAllBytes(image.toPath())));
+		//_log.error(_sightEngineService.isSafeImage(new FileInputStream(image)));
+		}catch (Exception e) {
+			_log.error(e);
+		}
 		return false;
 	}
 

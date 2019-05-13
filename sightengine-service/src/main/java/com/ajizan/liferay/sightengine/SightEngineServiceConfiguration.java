@@ -10,8 +10,7 @@ import aQute.bnd.annotation.metatype.Meta;
 @Meta.OCD(id = "com.ajizan.liferay.sightengine.SightEngineServiceConfiguration", localization = "content/Language", name = "liferay-sightengine-configuration-name")
 public interface SightEngineServiceConfiguration {
 
-	@Meta.AD(deflt = "0.20", required = false, name="sightengine-threshold", description = "sightengine-threshold-description")
-	public float getThreshold();
+	
 
 	@Meta.AD(deflt = "https://api.sightengine.com/1.0/check.json", required = false, name="sightengine-url", description = "sightengine-url-description")
 	public String getUrl();
@@ -24,4 +23,20 @@ public interface SightEngineServiceConfiguration {
 
 	@Meta.AD(deflt = "nudity,wad,offensive", required = false, cardinality = 3, name="sightengine-models", description = "sightengine-models-description")
 	public List<String> getModels();
+	
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-Weapon-threshold", description = "sightengine-weapon-threshold-description")
+	public float getWeaponThreshold();
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-Alcohol-threshold", description = "sightengine-Alcohol-threshold-description")
+	public float getAlcoholThreshold();
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-Drugs-threshold", description = "sightengine-Drugs-threshold-description")
+	public float getDrugsThreshold();
+	
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-Offensive-threshold", description = "sightengine-Offensive-threshold-description")
+	public float getOffensiveThreshold();
+	
+	
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-RawNudity-threshold", description = "sightengine-RawNudity-threshold-description")
+	public float getRawNudityThreshold();
+	@Meta.AD(deflt = "0.20", required = false, name="sightengine-PartialNudity-threshold", description = "sightengine-PartialNudity-threshold-description")
+	public float getPartialNudityThreshold();
 }
