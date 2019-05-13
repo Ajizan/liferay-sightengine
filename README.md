@@ -14,18 +14,32 @@ Liferay SightEngine plugin. API service provided by https://sightengine.com/
 
 The function returns True if the image is considered appropriate otherwise it returns False
 
+> Example
+'''
+		SightEngineService _sightEngineService; // Imported from the Main Class
+		File-image =new File(Path_to_File";
+		try {
+			_log.info(_sightEngineService.isSafeImage(image)); // File
+			_log.info(_sightEngineService.isSafeImage(Files.readAllBytes(image.toPath()))); // Bytes
+			_log.info(_sightEngineService.isSafeImage(new FileInputStream(image))); // Input Stram
+			// It will return True if Image is safe else it will return False
+		}catch (Exception e) {
+			_log.error(e);
+		}
+'''
+
 ## Configuration 
 > * To begin, you have to change the configuration of the project.
 
 * Mandatory
 
-> First of all it is necessary to connect to Sight Engine to have the identifier and the secret key, after modifying these two fields.
+> First of all it is necessary to connect to Sight Engine to have the identifier and the secret key, And Then modify  these two fields.
 
 ![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Credentials.png)
 
 * Optional
 
-> For this connector we worked with the three models (Nudity, Wad, Offensive) to add new models, just modify the configuration file while changing the cardinality according to the number of models used (Of course it is necessary that the models be supported by SightEngine)
+> For this connector we worked with the three models (Nudity, Wad, Offensive) to add new models, just modify the configuration file while changing the cardinality according to the number of models used (Of course it is necessary that the models are supported by SightEngine)
 
 ![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Models.png)
 
