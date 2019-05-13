@@ -16,7 +16,7 @@ The function returns True if the image is considered appropriate otherwise it re
 
 ## Configuration 
 
-![image]( https://ibb.co/hgdMKDv)
+![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/1.png)
 
 
 
