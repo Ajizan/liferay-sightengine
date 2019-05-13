@@ -17,7 +17,7 @@ The function returns True if the image is considered appropriate otherwise it re
 > Example
 ```
 		SightEngineService _sightEngineService; // Imported from the Main Class
-		File-image =new File(Path_to_File";
+		File-image =new File(Path_to_File);
 		try {
 			_log.info(_sightEngineService.isSafeImage(image)); // File
 			_log.info(_sightEngineService.isSafeImage(Files.readAllBytes(image.toPath()))); // Bytes
