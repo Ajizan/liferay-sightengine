@@ -15,8 +15,23 @@ Liferay SightEngine plugin. API service provided by https://sightengine.com/
 The function returns True if the image is considered appropriate otherwise it returns False
 
 ## Configuration 
+> * To begin, you have to change the configuration of the project.
 
-![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/1.png)
+* Mandatory
+
+> First of all it is necessary to connect to Sight Engine to have the identifier and the secret key, after modifying these two fields.
+
+![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Credentials.png)
+
+* Optional
+
+> For this connector we worked with the three models (Nudity, Wad, Offensive) to add new models, just modify the configuration file while changing the cardinality according to the number of models used (Of course it is necessary that the models be supported by SightEngine)
+
+![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Models.png)
+
+> Finally we put a threshold for each class, if you add new models it will be necessary to add the threshold for this model
+
+![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Thresholds.png)
 
 
 
