@@ -15,7 +15,7 @@ Liferay SightEngine plugin. API service provided by https://sightengine.com/
 The function returns True if the image is considered appropriate otherwise it returns False
 
 > Example
-'''
+```
 		SightEngineService _sightEngineService; // Imported from the Main Class
 		File-image =new File(Path_to_File";
 		try {
@@ -26,7 +26,7 @@ The function returns True if the image is considered appropriate otherwise it re
 		}catch (Exception e) {
 			_log.error(e);
 		}
-'''
+```
 
 ## Configuration 
 > * To begin, you have to change the configuration of the project.
