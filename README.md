@@ -37,7 +37,7 @@ Liferay SightEngine plugin. API service provided by https://sightengine.com/
 
 > First of all it is necessary to connect to Sight Engine to have the identifier and the secret key, And Then modify  these two fields.
 
-![image](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Credentials.png)
+![image alt ggg](https://raw.githubusercontent.com/Ajizan/liferay-sightengine/master/Img/Credentials.png)
 
 * Optional
 
