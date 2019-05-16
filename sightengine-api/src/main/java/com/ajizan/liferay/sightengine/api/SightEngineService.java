@@ -8,7 +8,7 @@ import java.io.InputStream;
 /**
  * @author aiziki
  */
-public interface SightEngineService {
+public interface SightEngineService  {
 	
 	
 	
