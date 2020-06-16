@@ -36,10 +36,10 @@ public class SightEngineServiceImpl implements SightEngineService {
 	@Override
 	public boolean isSafeImage(File file) {
 		HttpEntity data = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-					.addBinaryBody("media", file, ContentType.DEFAULT_BINARY, file.getName())
-					.addTextBody("api_user", _config.getApiUser(), ContentType.TEXT_PLAIN)
-					.addTextBody("api_secret", _config.getApiSecret(), ContentType.TEXT_PLAIN)
-					.addTextBody("models", String.join(",", _config.getModels()), ContentType.TEXT_PLAIN).build();
+				.addBinaryBody("media", file, ContentType.DEFAULT_BINARY, file.getName())
+				.addTextBody("api_user", _config.getApiUser(), ContentType.TEXT_PLAIN)
+				.addTextBody("api_secret", _config.getApiSecret(), ContentType.TEXT_PLAIN)
+				.addTextBody("models", String.join(",", _config.getModels()), ContentType.TEXT_PLAIN).build();
 		return sendRequest(data);
 	}
 
@@ -62,9 +62,18 @@ public class SightEngineServiceImpl implements SightEngineService {
 				.addTextBody("models", String.join(",", _config.getModels()), ContentType.TEXT_PLAIN).build();
 		return sendRequest(data);
 	}
+
 	public boolean sendRequest(HttpEntity data) {
+
+		if (!_config.enabled()) {
+			if (_log.isDebugEnabled()) {
+				_log.warn("SightEngine is disabled. Returning true by default.");
+			}
+			return true;
+		}
+
 		try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-			
+
 			HttpUriRequest request = RequestBuilder.post(_config.getUrl()).setEntity(data).build();
 
 			if (_log.isDebugEnabled()) {
@@ -73,57 +82,56 @@ public class SightEngineServiceImpl implements SightEngineService {
 
 			// Create a custom response handler
 			ResponseHandler<String> responseHandler = response -> {
-			int status = response.getStatusLine().getStatusCode();
-			if (status >= 200 && status < 300) {
-				HttpEntity entity = response.getEntity();
-				return entity != null ? EntityUtils.toString(entity) : null;
-			} else {
-				throw new ClientProtocolException("Unexpected response status: " + status);
-			}
+				int status = response.getStatusLine().getStatusCode();
+				if (status >= 200 && status < 300) {
+					HttpEntity entity = response.getEntity();
+					return entity != null ? EntityUtils.toString(entity) : null;
+				} else {
+					throw new ClientProtocolException("Unexpected response status: " + status);
+				}
 			};
 			String responseBody = httpclient.execute(request, responseHandler);
 			if (_log.isDebugEnabled()) {
 				_log.debug(responseBody);
 			}
 			JSONObject result = JSONFactoryUtil.createJSONObject(responseBody);
-			
-			if(result.has("alcohol")) {
+
+			if (result.has("alcohol")) {
 				double alcohol = result.getDouble("alcohol");
-				if (alcohol> _config.getAlcoholThreshold()){
+				if (alcohol > _config.getAlcoholThreshold()) {
 					return false;
 				}
 			}
-			if(result.has("weapon")) {
+			if (result.has("weapon")) {
 				double weapon = result.getDouble("weapon");
 				if (weapon > _config.getWeaponThreshold()) {
 					return false;
 				}
 			}
-			if(result.has("drugs")) {
+			if (result.has("drugs")) {
 				double drugs = result.getDouble("drugs");
 				if (drugs > _config.getDrugsThreshold()) {
 					return false;
 				}
 			}
-			if(result.has("offensive")) {
+			if (result.has("offensive")) {
 				double offensive = (result.getJSONObject("offensive")).getDouble("prob");
 				if (offensive > _config.getOffensiveThreshold()) {
 					return false;
 				}
 			}
-			JSONObject nudity=null;
-			if(result.has("nudity")) {
-			 nudity= result.getJSONObject("nudity");
-			 	
-			 	if(nudity.has("raw")) {
+			JSONObject nudity = null;
+			if (result.has("nudity")) {
+				nudity = result.getJSONObject("nudity");
+
+				if (nudity.has("raw")) {
 					double raw = nudity.getDouble("raw");
 					if (raw > _config.getRawNudityThreshold()) {
 						return false;
 					}
 				}
-			 	
-			 	
-				if(nudity.has("partial")) {
+
+				if (nudity.has("partial")) {
 					double partial = nudity.getDouble("partial");
 					if (partial > _config.getPartialNudityThreshold()) {
 						return false;
@@ -137,10 +145,7 @@ public class SightEngineServiceImpl implements SightEngineService {
 		}
 		return false;
 	}
-	
-	
-	
-	
+
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {
@@ -149,5 +154,4 @@ public class SightEngineServiceImpl implements SightEngineService {
 
 	public volatile SightEngineServiceConfiguration _config;
 
-	
 }
